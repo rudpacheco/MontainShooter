@@ -4,7 +4,7 @@ print('Setup Start')
 pygame.init()
 windows = pygame.display.set_mode(size=(600, 480))
 print('Setup End')
-# Teste Rudney
+
 print('Loop Start')
 while True:
     # Check for all events
