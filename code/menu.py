@@ -14,18 +14,19 @@ class Menu:
         self.surf = pygame.image.load('./asset/MenuBg.png')
         self.rect = self.surf.get_rect(left=0, top=0)
 
-    def run(self):
+    def run(self, ):
+        menu_option = 0
         pygame.mixer_music.load('./asset/Menu.mp3')
         pygame.mixer_music.play(-1)
         while True:
             self.window.blit(source=self.surf, dest=self.rect)
-            self.menu_text(50, "Mountain", C_WHITE, ((WIN_WIDTH / 2), 70))
-            self.menu_text(50, "Shooter", C_WHITE, ((WIN_WIDTH / 2), 120))
+            self.menu_text(60, "Mountain", C_ORANGE, ((WIN_WIDTH / 2), 70))
+            self.menu_text(60, "Shooter", C_ORANGE, ((WIN_WIDTH / 2), 120))
             for i in range(len(MENU_OPTION)):
-            # if i == menu_option:
-                self.menu_text(20, MENU_OPTION[i], C_WHITE, ((WIN_WIDTH / 2), 200 + 25 * i))
-            # else:
-            #    self.menu_text(20, MENU_OPTION[i], C_WHITE, ((WIN_WIDTH / 2), 200 + 25 * i))
+                if i == menu_option:
+                    self.menu_text(30, MENU_OPTION[i], C_YELLOW, ((WIN_WIDTH / 2), 200 + 25 * i))
+                else:
+                    self.menu_text(30, MENU_OPTION[i], C_WHITE, ((WIN_WIDTH / 2), 200 + 25 * i))
 
             pygame.display.flip()
 
