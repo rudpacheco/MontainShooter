@@ -2,32 +2,30 @@
 # -*- coding: utf-8 -*-
 import pygame
 import pygame.image
+from pygame import Surface, Rect
+from pygame.font import Font
+
+from Const import WIN_WIDTH, C_ORANGE, MENU_OPTION, C_WHITE, C_YELLOW
+
 
 class Menu:
     def __init__(self, window):
         self.window = window
         self.surf = pygame.image.load('./asset/MenuBg.png')
         self.rect = self.surf.get_rect(left=0, top=0)
-        self.font = pygame.font.SysFont('Arial', 36)  # Escolha uma fonte e tamanho
-
-    def draw_text(self, text, color, x, y):
-        """Função auxiliar para desenhar texto."""
-        text_surface = self.font.render(text, True, color)
-        text_rect = text_surface.get_rect()
-        text_rect.topleft = (x, y)
-        self.window.blit(text_surface, text_rect)
 
     def run(self):
         pygame.mixer_music.load('./asset/Menu.mp3')
         pygame.mixer_music.play(-1)
         while True:
             self.window.blit(source=self.surf, dest=self.rect)
-
-            # --- Inserção de texto ---
-            self.draw_text("Mountain", (255, 128, 0), 100, 50)  # Título
-            self.draw_text("Pressione ESPAÇO para começar", (255, 255, 255), 100, 150)
-            self.draw_text("ESC para sair", (255, 255, 255), 100, 200)
-            # --- Fim inserção de texto ---
+            self.menu_text(50, "Mountain", C_ORANGE, ((WIN_WIDTH / 2), 70))
+            self.menu_text(50, "Shooter", C_ORANGE, ((WIN_WIDTH / 2), 120))
+            for i in range(len(MENU_OPTION)):
+                if i == menu_option:
+                    self.menu_text(20, MENU_OPTION[i], C_YELLOW, ((WIN_WIDTH / 2), 200 + 25 * i))
+                else:
+                    self.menu_text(20, MENU_OPTION[i], C_WHITE, ((WIN_WIDTH / 2), 200 + 25 * i))
 
             pygame.display.flip()
 
@@ -44,6 +42,14 @@ class Menu:
                     if event.key == pygame.K_ESCAPE:
                         pygame.quit()
                         quit()
+
+    def menu_text(self, text_size: int, text: str, text_color: tuple, text_center_pos: tuple):
+        text_font: Font = pygame.font.SysFont(name="Lucida Sans Typewriter", size=text_size)
+        text_surf: Surface = text_font.render(text, True, text_color).convert_alpha()
+        text_rect: Rect = text_surf.get_rect(center=text_center_pos)
+        self.window.blit(source=text_surf, dest=text_rect)
+        pass
+
 
 if __name__ == '__main__':
     pygame.init()
