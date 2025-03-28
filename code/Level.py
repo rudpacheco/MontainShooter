@@ -39,7 +39,9 @@ class Level:
                 self.window.blit(source=ent.surf, dest=ent.rect)
                 ent.move()
                 if isinstance(ent, (Player, Enemy)):
-                    self.entity_list.append(ent.shoot())
+                    shoot = ent.shoot()
+                    if shoot is not None:
+                        self.entity_list.append(shoot)
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     pygame.quit()
